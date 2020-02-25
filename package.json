@@ -1,0 +1,35 @@
+{
+  "name": "comments-api",
+  "version": "1.0.0",
+  "description": "A simple NodeJS API for infinite-nested comments.",
+  "scripts": {
+    "start": "npm run build:live",
+    "build:live": "nodemon --exec ./node_modules/.bin/ts-node --watch ./src/ ./src/main.ts",
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ChristianArredondo/comments-api.git"
+  },
+  "author": "christian arredondo",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ChristianArredondo/comments-api/issues"
+  },
+  "homepage": "https://github.com/ChristianArredondo/comments-api#readme",
+  "devDependencies": {
+    "@types/express": "^4.17.2",
+    "@types/mongodb": "^3.3.16",
+    "@types/node": "^13.7.5",
+    "concurrently": "^5.1.0",
+    "nodemon": "^2.0.2",
+    "ts-node": "^8.6.2",
+    "typescript": "^3.8.2"
+  },
+  "dependencies": {
+    "ajv": "^6.12.0",
+    "body-parser": "^1.19.0",
+    "express": "^4.17.1",
+    "mongodb": "^3.5.4"
+  }
+}
