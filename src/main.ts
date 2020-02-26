@@ -2,7 +2,7 @@ import express from 'express'
 import { MongoClient } from 'mongodb'
 import { AddressInfo } from 'net'
 import * as bodyparser from 'body-parser'
-import { initCommentRoutes } from './controllers/comments'
+import { commentsController } from './controllers/comments'
 
 const app = express()
 
@@ -26,7 +26,7 @@ MongoClient.connect(
     const db = mongoClient.db(process.env.DB_NAME || 'comments-api')
 
     // init endpoints
-    app.use('/comments', initCommentRoutes(db))
+    app.use('/comments', commentsController(db))
 
     // boot
     const server = app.listen(process.env.PORT || 8080, () => {
