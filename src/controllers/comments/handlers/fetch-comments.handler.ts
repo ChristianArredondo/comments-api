@@ -23,7 +23,10 @@ export const handleFetchComments = ({ db }: FetchCommentsDependencies) => async 
 
   // query
   const $match: FetchCommentsMatch = {}
-  if (isRoot) $match.isRoot = req.query.isRoot === 'true'
+  if (isRoot) {
+    if (req.query.isRoot === 'true') $match.isRoot = true
+    else if (req.query.isRoot === 'false') $match.isRoot = true
+  }
 
   // sort
   let $sort: FetchCommentsSort = { _id: -1 }
