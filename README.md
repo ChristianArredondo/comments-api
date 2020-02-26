@@ -20,5 +20,6 @@
 - MongoDB Compass
 
 ## Todo
+- add `/populate` endpoint
 - indexes
 - docs for APIs
