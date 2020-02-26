@@ -18,4 +18,7 @@
 
 ### General
 - MongoDB Compass
+
+## Todo
 - indexes
+- docs for APIs
