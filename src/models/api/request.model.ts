@@ -5,3 +5,8 @@ export interface WithParamsAndQuery<Params extends ParamsDictionary, Query = nul
   params: Params
   query: Query
 }
+
+export interface WithParamsAndBody<Params extends ParamsDictionary, Body = null> extends Request {
+  params: Params
+  body: Body
+}

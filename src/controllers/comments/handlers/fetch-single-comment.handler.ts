@@ -54,6 +54,10 @@ const getAsNumOrDefault = (maybeStringNum: string, defaultVal: number) => {
   return !isNaN(asInt) ? asInt : defaultVal
 }
 
+/**
+ * TODO
+ *  - sorting (w/ nested sorting)
+ */
 export const handleFetchSingleComment = ({ db }: FetchSingleCommentDependencies) => async (req: FetchSingleCommentRequest, res: Response) => {
   // init state
   const collection = db.collection<Comment>('comments')

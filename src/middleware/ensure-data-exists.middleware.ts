@@ -16,7 +16,8 @@ interface EnsureDataCheck {
  */
 export const ensureDataExistsMiddleware = (
   db: Db,
-  checks: EnsureDataCheck[]
+  checks: EnsureDataCheck[],
+  status: number = 404
 ) => async (req: Request, res: Response, next: NextFunction) => {
   if (!checks || !checks.length) next()
 
@@ -30,5 +31,5 @@ export const ensureDataExistsMiddleware = (
 
   const allDataExists = dataPromises.every(data => !!data)
   if (allDataExists) next()
-  else res.status(404).send()
+  else res.status(status).send()
 }

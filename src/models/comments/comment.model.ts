@@ -6,7 +6,7 @@ export interface Comment {
   createdByUsername: string
   createdDate: Date
   isRoot: boolean
-  parentCommentId: string | null
-  title: string
+  parentComment_id: ObjectId | null
+  title: string | null
   totalComments: number
 }
