@@ -7,7 +7,12 @@ import { WithParamsAndQuery } from "../../../models/api/request.model"
 const DEPTH_LIMIT = 3
 const CHILDREN_LIMIT = 5
 
-// Consideration: set max allowable limit (for performance)
+/**
+ * Recursivesly adds $lookup stage for nested comments
+ * 
+ * Considerations:
+ *  - set max allowable limits (for performance)
+ */
 const get$LookupStageRecursive = (depthLimit: number, childrenLimit: number) => {
   const $lookup: any = {
     from: 'comments',
