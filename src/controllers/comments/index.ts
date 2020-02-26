@@ -1,7 +1,8 @@
-import { Db } from "mongodb"
+import { Db, ObjectId } from "mongodb"
 import express from 'express'
 import { handleFetchComments } from "./handlers/fetch-comments.handler"
 import { handleFetchSingleComment } from './handlers/fetch-single-comment.handler'
+import { ensureDataExistsMiddleware } from "../../middleware/ensure-data-exists.middleware"
 
 export const commentsController = (db: Db) => {
   const router = express.Router()
@@ -15,7 +16,13 @@ export const commentsController = (db: Db) => {
   // GET single
   router.get(
     '/:commentId',
-    // TODO. 404 middleware
+    ensureDataExistsMiddleware(
+      db,
+      [{
+        collectionName: 'comments',
+        buildQueryFromReq: req => ({ _id: new ObjectId(req.params.commentId) })
+      }]
+    ),
     handleFetchSingleComment({ db })
   )
 
