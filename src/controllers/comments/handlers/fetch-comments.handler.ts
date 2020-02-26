@@ -11,7 +11,7 @@ type FetchCommentsSort = { [key in keyof Partial<Comment>]: 1 | -1 }
 type FetchCommentsRequest = WithParamsAndQuery<
   {},
   {
-    isRoot?: string
+    root?: string
     sortBy?: string
     sortDir?: string
     page?: string
@@ -19,13 +19,13 @@ type FetchCommentsRequest = WithParamsAndQuery<
 >
 export const handleFetchComments = ({ db }: FetchCommentsDependencies) => async (req: FetchCommentsRequest, res: Response) => {
   const collection = db.collection<Comment>('comments')
-  const { isRoot, sortBy, sortDir, page } = req.query
+  const { root, sortBy, sortDir, page } = req.query
 
   // query
   const $match: FetchCommentsMatch = {}
-  if (isRoot) {
-    if (req.query.isRoot === 'true') $match.isRoot = true
-    else if (req.query.isRoot === 'false') $match.isRoot = true
+  if (root) {
+    if (root === 'true') $match.isRoot = true
+    else if (root === 'false') $match.isRoot = false
   }
 
   // sort

@@ -11,8 +11,8 @@ const constructComment = ({
   title
 }: CreateCommentPayload): Comment => {
   const commentToCreate: Comment = {
-    body,
     createdByUsername,
+    body: !!body ? body : null,
     _id: new ObjectId(),
     createdDate: new Date(),
     isRoot: !parentId,
