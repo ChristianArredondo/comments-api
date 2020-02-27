@@ -1,5 +1,5 @@
 import { Db, ObjectId } from "mongodb"
-import express from 'express'
+import express, { Request } from 'express'
 
 import { handleFetchComments } from "./handlers/fetch-comments.handler"
 import { handleFetchSingleComment } from './handlers/fetch-single-comment.handler'
@@ -10,6 +10,7 @@ import { createRootCommentSchema, createChildCommentSchema } from "./validation/
 
 export const commentsController = (db: Db) => {
   const router = express.Router()
+  const commentsCollName = 'comments'
 
   // GET many
   router.get(
@@ -18,40 +19,30 @@ export const commentsController = (db: Db) => {
   )
 
   // GET single
+  const verifyTargetExists = (req: Request) => ({ _id: new ObjectId(req.body.parentId) })
   router.get(
     '/:commentId',
     ensureDataExistsMiddleware(
       db,
-      [
-        // check target id
-        {
-          collectionName: 'comments',
-          buildQueryFromReq: req => ({ _id: new ObjectId(req.params.commentId) })
-        }
-      ]
+      [{ collectionName: commentsCollName, buildQueryFromReq: verifyTargetExists }]
     ),
     handleFetchSingleComment({ db })
   )
 
-  // POST single
-  router.post(
-    '/root',
+  // POST single root comment
+  router.post('/root',
     requestValidatorMiddleware(createRootCommentSchema),
     handleCreateComment({ db })
   )
+
+  // POST single child comment
+  const refIntegrityCheckParent = (req: Request) => ({ _id: new ObjectId(req.body.parentId) })
   router.post(
     '/child',
     requestValidatorMiddleware(createChildCommentSchema),
     ensureDataExistsMiddleware(
       db,
-      [
-        // referential integrity check
-        {
-          collectionName: 'comments',
-          buildQueryFromReq: req => ({ _id: new ObjectId(req.body.parentId) })
-        }
-      ],
-      400
+      [{ collectionName: commentsCollName, buildQueryFromReq: refIntegrityCheckParent }]
     ),
     handleCreateComment({ db })
   )
