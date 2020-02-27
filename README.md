@@ -36,8 +36,11 @@ Open terminal
 # cd into project
 cd ~/path/to/comments-api
 
+# install project dependencies
+npm install
+
 # build project
-npm build
+npm run build
 
 # start via docker-compose
 docker-compose up --build
