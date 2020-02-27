@@ -4,7 +4,7 @@
   "description": "A simple NodeJS API for infinite-nested comments.",
   "scripts": {
     "start": "npm run build:live",
-    "build:live": "nodemon --exec ./node_modules/.bin/ts-node --watch ./src/ ./src/main.ts",
+    "build:live": "nodemon --exec ts-node --watch ./src/ ./src/main.ts",
     "test": "test"
   },
   "repository": {
