@@ -10,6 +10,13 @@ const DEFAULT_ROOT_COMMENTS = 5
 
 const getRandomNum = (limit = 5) => Math.floor(Math.random() * (limit + 1))
 
+/**
+ * Inserts root comments and nested comments with
+ * a random number of total children and nested levels.
+ * 
+ * Notes:
+ *  - can be optimized using mongo `initializeUnorderedBulkOp`
+ */
 export const handlePopulateComments = ({ db }: { db: Db }) => async (req: Request, res: Response) => {
   const commentsCollection = db.collection<Comment>('comments')
   await commentsCollection.deleteMany({})
