@@ -19,7 +19,7 @@ export const commentsController = (db: Db) => {
   )
 
   // GET single
-  const verifyTargetExists = (req: Request) => ({ _id: new ObjectId(req.body.parentId) })
+  const verifyTargetExists = (req: Request) => ({ _id: new ObjectId(req.params.commentId) })
   router.get(
     '/:commentId',
     ensureDataExistsMiddleware(
@@ -30,7 +30,8 @@ export const commentsController = (db: Db) => {
   )
 
   // POST single root comment
-  router.post('/root',
+  router.post(
+    '/root',
     requestValidatorMiddleware(createRootCommentSchema),
     handleCreateComment({ db })
   )
