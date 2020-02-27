@@ -27,6 +27,10 @@ npm install
 
 # run service
 npm start
+
+# verify that service is running by hitting
+# healthcheck endpoint in another terminal
+curl localhost:8080/ping
 ```
 
 ### 2. Run with docker
@@ -44,6 +48,10 @@ npm run build
 
 # start via docker-compose
 docker-compose up --build
+
+# verify that service is running by hitting
+# healthcheck endpoint in another terminal
+curl localhost:8080/ping
 ```
 
 ## Stuff to talk about
