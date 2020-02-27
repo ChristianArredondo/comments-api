@@ -35,7 +35,6 @@ const get$LookupStageRecursive = (depthLimit: number, childrenLimit: number) => 
   return { $lookup }
 }
 
-
 export const findSingleComment = async (
   coll: Collection<Comment>,
   commentId: string,

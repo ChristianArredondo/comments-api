@@ -7,6 +7,7 @@ import { handleCreateComment } from "./handlers/create-comment.handler"
 import { ensureDataExistsMiddleware } from "../../middleware/ensure-data-exists.middleware"
 import { requestValidatorMiddleware } from "../../middleware/request-validator.middleware"
 import { createRootCommentSchema, createChildCommentSchema } from "./validation/create-comment.validation"
+import { handlePopulateComments } from "./handlers/populate-comments.handler"
 
 export const commentsController = (db: Db) => {
   const router = express.Router()
@@ -46,6 +47,12 @@ export const commentsController = (db: Db) => {
       [{ collectionName: commentsCollName, buildQueryFromReq: refIntegrityCheckParent }]
     ),
     handleCreateComment({ db })
+  )
+
+  // POST populate comments
+  router.post(
+    '/populate',
+    handlePopulateComments({ db })
   )
 
   return router

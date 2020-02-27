@@ -1,4 +1,4 @@
-import { Collection } from "mongodb"
+import { Collection, ObjectId } from "mongodb"
 
 import { Comment } from "../../../models/comments/comment.model"
 
@@ -8,13 +8,17 @@ export const insertComment = async (
 ) => {
   // insert comment
   const insertionOp = await coll.insertOne(commentToCreate)
-  // update parent total comments
-  if (commentToCreate.parentComment_id) {
-    await coll.updateOne(
-      { _id: commentToCreate.parentComment_id },
+
+  // update parent total comments recursively
+  let parentComment_id: ObjectId | null = commentToCreate.parentComment_id
+  while (parentComment_id) {
+    const parent = await coll.findOneAndUpdate(
+      { _id: parentComment_id },
       { $inc: { totalComments: 1 } }
     )
+    parentComment_id = parent.value ? parent.value.parentComment_id : null
   }
+
   // return new id
   return insertionOp.insertedId
 }
