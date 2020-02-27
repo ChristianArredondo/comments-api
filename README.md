@@ -571,7 +571,7 @@ Sample Payload
 Sample Response
 ```json
 {
-    "id": "5e57eca9843527183fc1ff10" // created ID
+    "id": "5e57eca9843527183fc1ff10"
 }
 ```
 
@@ -601,7 +601,7 @@ Sample Payload
 Sample Response
 ```json
 {
-    "id": "5e57eca9843527183fc1ff12" // created ID
+    "id": "5e57eca9843527183fc1ff12"
 }
 ```
 
