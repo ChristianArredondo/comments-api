@@ -25,7 +25,7 @@ const get$LookupStageRecursive = (depthLimit: number, childrenLimit: number) => 
         }
       },
       {
-        $limit: childrenLimit
+        $limit: childrenLimit > 0 ? childrenLimit : 1
       }
     ]
   }
