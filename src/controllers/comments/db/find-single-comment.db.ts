@@ -10,6 +10,18 @@ const DEFAULT_CHILDREN_LIMIT = 5
  * 
  * Considerations:
  *  - set max allowable limits (for performance)
+ * 
+ * $graphlookup alternative
+  {
+    from: 'comments',
+    startWith: '$_id',
+    connectFromField: '_id',
+    connectToField: 'parentComment_id',
+    as: 'children',
+    maxDepth: 5,
+    depthField: 'children',
+    // restrictSearchWithMatch: {}
+  }
  */
 const get$LookupStageRecursive = (depthLimit: number, childrenLimit: number) => {
   const $lookup: any = {
